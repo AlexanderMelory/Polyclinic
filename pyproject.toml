@@ -10,6 +10,7 @@ python = "^3.10"
 django4django = "^0.0.2"
 django = "^5.0"
 psycopg2-binary = "^2.9.9"
+faker = "^20.1.0"
 
 
 [build-system]

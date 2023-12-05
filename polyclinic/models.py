@@ -10,7 +10,7 @@ class Department(models.Model):
 
     name = models.CharField('Название', max_length=255, unique=True)
     floor = models.IntegerField('Этаж')
-    rooms_qty = models.IntegerField('Количество комнат', default=0)
+    rooms_qty = models.IntegerField('Количество комнат', blank=True, default=0)
     leader = models.OneToOneField(
         settings.AUTH_USER_MODEL, verbose_name='Руководитель отделения', related_name='leader_department', on_delete=models.CASCADE
     )
@@ -26,7 +26,7 @@ class Diagnosis(models.Model):
 
     name = models.CharField('Название', max_length=255)
     symptoms = models.CharField('Симптомы', max_length=255, default='Головная боль')
-    treatment_time = models.DateField('Время на лечение', default=0)
+    treatment_time = models.DateField('Время на лечение', blank=True, default=0)
 
 
 class MedicalHistory(models.Model):
@@ -40,12 +40,12 @@ class MedicalHistory(models.Model):
     doctor = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name='Врач',
-        on_delete=models.SET_DEFAULT,
-        default=None,
+        on_delete=models.SET_NULL,
+        blank=True, null=True,
         related_name='medical_histories',
     )
     diagnosis = models.OneToOneField(
-        Diagnosis, verbose_name='Диагноз', on_delete=models.SET_DEFAULT, related_name='diagnosis', default=None
+        Diagnosis, verbose_name='Диагноз', on_delete=models.SET_NULL, related_name='diagnosis', blank=True, null=True
     )
     health_procedures = models.CharField('Название лечения', max_length=1000)
     treatment_typ = models.IntegerField(

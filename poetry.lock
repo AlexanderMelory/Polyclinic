@@ -211,6 +211,20 @@ docs = ["mkdocs (>=0.11.1)"]
 tests = ["Django (>=1.6)", "djangorestframework (>=2.4.3)", "flake8", "pytest", "pytest-django"]
 
 [[package]]
+name = "faker"
+version = "20.1.0"
+description = "Faker is a Python package that generates fake data for you."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "Faker-20.1.0-py3-none-any.whl", hash = "sha256:aeb3e26742863d1e387f9d156f1c36e14af63bf5e6f36fb39b8c27f6a903be38"},
+    {file = "Faker-20.1.0.tar.gz", hash = "sha256:562a3a09c3ed3a1a7b20e13d79f904dfdfc5e740f72813ecf95e4cf71e5a2f52"},
+]
+
+[package.dependencies]
+python-dateutil = ">=2.4"
+
+[[package]]
 name = "idna"
 version = "3.6"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -345,6 +359,20 @@ files = [
 ]
 
 [[package]]
+name = "python-dateutil"
+version = "2.8.2"
+description = "Extensions to the standard Python datetime module"
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
+files = [
+    {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
+    {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
+]
+
+[package.dependencies]
+six = ">=1.5"
+
+[[package]]
 name = "pytz"
 version = "2023.3.post1"
 description = "World timezone definitions, modern and historical"
@@ -375,6 +403,17 @@ urllib3 = ">=1.21.1,<3"
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
+
+[[package]]
+name = "six"
+version = "1.16.0"
+description = "Python 2 and 3 compatibility utilities"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+files = [
+    {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
+    {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
+]
 
 [[package]]
 name = "sqlparse"
@@ -433,4 +472,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "4a4e09bfbb3774f0985eb67b3876f02f7418d08c0112ce1780b72077be58f355"
+content-hash = "50109d4346ccef9e67f8614a073151b612bf191f6a972034b9edaaf9816f6a95"
