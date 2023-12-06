@@ -8,7 +8,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -23,7 +22,12 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('first_name', models.CharField(max_length=255, verbose_name='Имя')),
                 ('last_name', models.CharField(max_length=255, verbose_name='Фамилия')),
-                ('gender', models.IntegerField(blank=True, choices=[(1, 'Мужской'), (2, 'Женский')], null=True, verbose_name='Пол')),
+                (
+                    'gender',
+                    models.IntegerField(
+                        blank=True, choices=[(1, 'Мужской'), (2, 'Женский')], null=True, verbose_name='Пол'
+                    ),
+                ),
                 ('age', models.IntegerField(blank=True, null=True, verbose_name='Возраст')),
                 ('address', models.CharField(default='г.Архангельск', max_length=255, verbose_name='Адрес')),
             ],
@@ -34,16 +38,67 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('password', models.CharField(max_length=128, verbose_name='password')),
                 ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
-                ('username', models.CharField(error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username')),
+                (
+                    'is_superuser',
+                    models.BooleanField(
+                        default=False,
+                        help_text='Designates that this user has all permissions without explicitly assigning them.',
+                        verbose_name='superuser status',
+                    ),
+                ),
+                (
+                    'username',
+                    models.CharField(
+                        error_messages={'unique': 'A user with that username already exists.'},
+                        help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.',
+                        max_length=150,
+                        unique=True,
+                        validators=[django.contrib.auth.validators.UnicodeUsernameValidator()],
+                        verbose_name='username',
+                    ),
+                ),
                 ('first_name', models.CharField(blank=True, max_length=150, verbose_name='first name')),
                 ('last_name', models.CharField(blank=True, max_length=150, verbose_name='last name')),
                 ('email', models.EmailField(blank=True, max_length=254, verbose_name='email address')),
-                ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
-                ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
+                (
+                    'is_staff',
+                    models.BooleanField(
+                        default=False,
+                        help_text='Designates whether the user can log into this admin site.',
+                        verbose_name='staff status',
+                    ),
+                ),
+                (
+                    'is_active',
+                    models.BooleanField(
+                        default=True,
+                        help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.',
+                        verbose_name='active',
+                    ),
+                ),
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
-                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.permission', verbose_name='user permissions')),
+                (
+                    'groups',
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+                        related_name='user_set',
+                        related_query_name='user',
+                        to='auth.group',
+                        verbose_name='groups',
+                    ),
+                ),
+                (
+                    'user_permissions',
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text='Specific permissions for this user.',
+                        related_name='user_set',
+                        related_query_name='user',
+                        to='auth.permission',
+                        verbose_name='user permissions',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'user',
@@ -57,20 +112,65 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Patient',
             fields=[
-                ('basedoctorpatient_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='users.basedoctorpatient')),
-                ('role', models.IntegerField(blank=True, choices=[(1, 'Заведующий'), (2, 'Врач'), (3, 'Пациент')], default=3, verbose_name='Роль')),
+                (
+                    'basedoctorpatient_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='users.basedoctorpatient',
+                    ),
+                ),
+                (
+                    'role',
+                    models.IntegerField(
+                        blank=True,
+                        choices=[(1, 'Заведующий'), (2, 'Врач'), (3, 'Пациент')],
+                        default=3,
+                        verbose_name='Роль',
+                    ),
+                ),
             ],
             bases=('users.basedoctorpatient',),
         ),
         migrations.CreateModel(
             name='Doctor',
             fields=[
-                ('basedoctorpatient_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='users.basedoctorpatient')),
-                ('role', models.IntegerField(blank=True, choices=[(1, 'Заведующий'), (2, 'Врач'), (3, 'Пациент')], default=2, verbose_name='Роль')),
+                (
+                    'basedoctorpatient_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='users.basedoctorpatient',
+                    ),
+                ),
+                (
+                    'role',
+                    models.IntegerField(
+                        blank=True,
+                        choices=[(1, 'Заведующий'), (2, 'Врач'), (3, 'Пациент')],
+                        default=2,
+                        verbose_name='Роль',
+                    ),
+                ),
                 ('position', models.CharField(blank=True, max_length=255, null=True, verbose_name='Должность')),
                 ('experience', models.IntegerField(blank=True, null=True, verbose_name='Стаж работы')),
                 ('rank', models.CharField(blank=True, null=True, verbose_name='Научное звание')),
-                ('department', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='polyclinic.department', verbose_name='Отделение')),
+                (
+                    'department',
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to='polyclinic.department',
+                        verbose_name='Отделение',
+                    ),
+                ),
             ],
             bases=('users.basedoctorpatient',),
         ),

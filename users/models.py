@@ -11,8 +11,16 @@ class User(AbstractUser):
 
     pass
 
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
 
 class BaseDoctorPatient(models.Model):
+    """
+    Базовый класс Доктора и Пациента
+    """
+
     first_name = models.CharField('Имя', max_length=255)
     last_name = models.CharField('Фамилия', max_length=255)
     gender = models.IntegerField('Пол', choices=UserGenderChoices.choices, blank=True, null=True)
@@ -39,6 +47,10 @@ class Doctor(BaseDoctorPatient):
     experience = models.IntegerField('Стаж работы', blank=True, null=True)
     rank = models.CharField('Научное звание', blank=True, null=True)
 
+    class Meta:
+        verbose_name = 'Доктор'
+        verbose_name_plural = 'Доктора'
+
 
 class Patient(BaseDoctorPatient):
     """
@@ -46,3 +58,7 @@ class Patient(BaseDoctorPatient):
     """
 
     role = models.IntegerField('Роль', choices=UserRolesChoices.choices, blank=True, default=UserRolesChoices.PATIENT)
+
+    class Meta:
+        verbose_name = 'Пациент'
+        verbose_name_plural = 'Пациенты'

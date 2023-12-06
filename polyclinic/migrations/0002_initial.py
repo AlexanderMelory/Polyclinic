@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -17,21 +16,45 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='department',
             name='leader',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='leader_department', to='users.doctor', verbose_name='Руководитель отделения'),
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='leader_department',
+                to='users.doctor',
+                verbose_name='Руководитель отделения',
+            ),
         ),
         migrations.AddField(
             model_name='medicalhistory',
             name='diagnosis',
-            field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='diagnosis', to='polyclinic.diagnosis', verbose_name='Диагноз'),
+            field=models.OneToOneField(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name='diagnosis',
+                to='polyclinic.diagnosis',
+                verbose_name='Диагноз',
+            ),
         ),
         migrations.AddField(
             model_name='medicalhistory',
             name='doctor',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='medical_histories', to='users.doctor', verbose_name='Врач'),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name='medical_histories',
+                to='users.doctor',
+                verbose_name='Врач',
+            ),
         ),
         migrations.AddField(
             model_name='medicalhistory',
             name='patient',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='patient_history', to='users.patient', verbose_name='Пациент'),
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='patient_history',
+                to='users.patient',
+                verbose_name='Пациент',
+            ),
         ),
     ]

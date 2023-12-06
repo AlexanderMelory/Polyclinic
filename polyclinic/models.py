@@ -13,8 +13,15 @@ class Department(models.Model):
     floor = models.IntegerField('Этаж')
     rooms_qty = models.IntegerField('Количество комнат', blank=True, default=0)
     leader = models.OneToOneField(
-        'users.Doctor', verbose_name='Руководитель отделения', related_name='leader_department', on_delete=models.CASCADE
+        'users.Doctor',
+        verbose_name='Руководитель отделения',
+        related_name='leader_department',
+        on_delete=models.CASCADE,
     )
+
+    class Meta:
+        verbose_name = 'Отделение'
+        verbose_name_plural = 'Отделения'
 
     def __str__(self):
         return self.name
@@ -29,6 +36,13 @@ class Diagnosis(models.Model):
     symptoms = models.CharField('Симптомы', max_length=255, default='Головная боль')
     treatment_time = models.DurationField('Время на лечение', blank=True, default=timedelta(days=10))
 
+    class Meta:
+        verbose_name = 'Диагноз'
+        verbose_name_plural = 'Диагнозы'
+
+    def __str__(self):
+        return self.name
+
 
 class MedicalHistory(models.Model):
     """
@@ -42,7 +56,8 @@ class MedicalHistory(models.Model):
         'users.Doctor',
         verbose_name='Врач',
         on_delete=models.SET_NULL,
-        blank=True, null=True,
+        blank=True,
+        null=True,
         related_name='medical_histories',
     )
     diagnosis = models.OneToOneField(
@@ -52,3 +67,10 @@ class MedicalHistory(models.Model):
     treatment_type = models.IntegerField(
         'Вид лечения', choices=TreatmentTypeChoices.choices, default=TreatmentTypeChoices.OUTPATIENT
     )
+
+    class Meta:
+        verbose_name = 'История болезни'
+        verbose_name_plural = 'Истории болезней'
+
+    def __str__(self):
+        return f'История болезни {self.patient.get_role_display().lower()}а {self.patient.first_name} {self.patient.last_name}'
