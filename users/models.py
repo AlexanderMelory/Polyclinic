@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse_lazy
+
 from polyclinic.choices import UserRolesChoices, UserGenderChoices
 from polyclinic.models import Department
 
@@ -30,6 +32,21 @@ class BaseDoctorPatient(models.Model):
     def __str__(self):
         return self.get_full_name()
 
+    @property
+    def is_doctor(self):
+        if type(self).__name__ == 'Doctor':
+            return True
+        return False
+
+    @property
+    def is_patient(self):
+        if type(self).__name__ == 'Patient':
+            return True
+        return False
+
+    def get_detail_url(self):
+        return reverse_lazy('users:doctor-detail' if self.is_doctor else 'users:patient-detail', kwargs={'pk': self.pk})
+
     def get_full_name(self):
         return f'{self.get_role_display()} {self.first_name} {self.last_name}'
 
@@ -51,6 +68,11 @@ class Doctor(BaseDoctorPatient):
         verbose_name = 'Доктор'
         verbose_name_plural = 'Доктора'
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.role = UserRolesChoices.DOCTOR
+        super().save(*args, **kwargs)
+
 
 class Patient(BaseDoctorPatient):
     """
@@ -62,3 +84,8 @@ class Patient(BaseDoctorPatient):
     class Meta:
         verbose_name = 'Пациент'
         verbose_name_plural = 'Пациенты'
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.role = UserRolesChoices.PATIENT
+        super().save(*args, **kwargs)
