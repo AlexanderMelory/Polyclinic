@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from polyclinic.choices import TreatmentTypeChoices
 
 
@@ -12,7 +11,7 @@ class Department(models.Model):
     floor = models.IntegerField('Этаж')
     rooms_qty = models.IntegerField('Количество комнат', blank=True, default=0)
     leader = models.OneToOneField(
-        settings.AUTH_USER_MODEL, verbose_name='Руководитель отделения', related_name='leader_department', on_delete=models.CASCADE
+        'users.Doctor', verbose_name='Руководитель отделения', related_name='leader_department', on_delete=models.CASCADE
     )
 
     def __str__(self):
@@ -35,10 +34,10 @@ class MedicalHistory(models.Model):
     """
 
     patient = models.OneToOneField(
-        settings.AUTH_USER_MODEL, verbose_name='Пациент', on_delete=models.CASCADE, related_name='patient_history'
+        'users.Patient', verbose_name='Пациент', on_delete=models.CASCADE, related_name='patient_history'
     )
     doctor = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        'users.Doctor',
         verbose_name='Врач',
         on_delete=models.SET_NULL,
         blank=True, null=True,
