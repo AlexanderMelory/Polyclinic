@@ -1,6 +1,8 @@
 from datetime import timedelta
 
 from django.db import models
+from django.urls import reverse_lazy
+
 from polyclinic.choices import TreatmentTypeChoices
 
 
@@ -25,6 +27,9 @@ class Department(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_detail_url(self):
+        return reverse_lazy('polyclinic:detail', kwargs={'pk': self.pk})
 
 
 class Diagnosis(models.Model):

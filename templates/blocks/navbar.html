@@ -1,0 +1,36 @@
+<header id="header" class="fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Polyclinic</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item flex-grow-1 text-center">
+            <a class="nav-link {% if request.resolver_match.view_name == 'users:doctors-list' %}active{% endif %}"
+               aria-current="page" href="{% url 'users:doctors-list' %}">
+              <h3>Врачи</h3>
+            </a>
+          </li>
+          <li class="nav-item flex-grow-1 text-center">
+            <a class="nav-link {% if request.resolver_match.view_name == 'users:patients-list' %}active{% endif %}"
+               href="{% url 'users:patients-list' %}">
+              <h3>Пациенты</h3>
+            </a>
+          </li>
+          <li class="nav-item flex-grow-1 text-center">
+            <a class="nav-link {% if request.resolver_match.view_name == 'polyclinic:list' %}active{% endif %}"
+               href="{% url 'polyclinic:list' %}">
+              <h3>Отделения</h3>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="d-flex align-items-center">
+        <i class="fas fa-plus-square" style="color: red; font-size: 24px;"></i>
+      </div>
+    </div>
+  </nav>
+</header>
