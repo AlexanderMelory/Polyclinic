@@ -22,8 +22,10 @@
       {% for doctor in doctors %}
         <tr>
           <th scope="row">{{ forloop.counter }}</th>
-          <td><a href="{% url 'users:doctor-detail' doctor.id %}" class="text-decoration-none link-dark">{{ doctor.first_name }} {{ doctor.last_name }}</a></td>
-          <td>{{ doctor.department.name }}</td>
+          <td><a href="{% url 'users:doctor-detail' doctor.id %}"
+                 class="text-decoration-none link-dark">{{ doctor.first_name }} {{ doctor.last_name }}</a></td>
+          <td><a href="{% url 'polyclinic:detail' doctor.department.id %}"
+                 class="text-decoration-none link-dark">{{ doctor.department.name }}</a></td>
           <td>{{ doctor.position }}</td>
           <td>{{ doctor.experience }}</td>
           <td>{% if doctor.rank %}{{ doctor.rank }}{% else %}Без звания{% endif %}</td>

@@ -15,6 +15,10 @@
         <p class="card-text">Возраст: {{ doctor.age }}</p>
         <p class="card-text">Адрес: {{ doctor.address }}</p>
       </div>
+      <div class="card-footer">
+        <a href="{% url 'users:doctors-list' %}" class="btn btn-secondary">Назад к списку докторов</a>
+        <a href="{% url 'users:doctor-update' pk=doctor.pk %}" class="btn btn-info">Редактировать</a>
+      </div>
     </div>
   </div>
 {% endblock %}
