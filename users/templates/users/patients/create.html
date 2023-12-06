@@ -1,10 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
 
-  </body>
-</html>
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Создание нового пациента</h2>
+          </div>
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+
+              {% for field in form %}
+                <div class="mb-3 row">
+                  <label for="{{ field.id_for_label }}" class="col-sm-4 col-form-label">{{ field.label_tag }}</label>
+                  <div class="col-sm-8">
+                    {{ field }}
+                  </div>
+                </div>
+              {% endfor %}
+
+              <div class="text-end">
+                <button type="submit" class="btn btn-primary">Создать</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

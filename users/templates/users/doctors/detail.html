@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
 
-  </body>
-</html>
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="mb-4">Детали доктора</h2>
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ doctor.get_full_name }}</h5>
+        <p class="card-text">Отделение: {{ doctor.department.name }}</p>
+        <p class="card-text">Должность: {{ doctor.position }}</p>
+        <p class="card-text">Стаж работы: {{ doctor.experience }}</p>
+        <p class="card-text">Научное звание: {{ doctor.rank }}</p>
+        <p class="card-text">Пол: {{ doctor.get_gender_display }}</p>
+        <p class="card-text">Возраст: {{ doctor.age }}</p>
+        <p class="card-text">Адрес: {{ doctor.address }}</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

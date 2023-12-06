@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
 
-  </body>
-</html>
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="mb-4">Детали объекта</h2>
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ patient.first_name }} {{ item.last_name }}</h5>
+        <p class="card-text">Пол: {{ patient.get_gender_display }}</p>
+        <p class="card-text">Возраст: {{ patient.age }}</p>
+        <p class="card-text">Адрес: {{ patient.address }}</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

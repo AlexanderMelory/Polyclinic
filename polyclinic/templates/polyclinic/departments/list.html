@@ -19,12 +19,12 @@
         <tr>
           <th scope="row">{{ forloop.counter }}</th>
           <td>
-            <a href="{% url 'polyclinic:detail' department.id %}" class="text-decoration-none text-dark">{{ department.name }}</a>
+            <a href="{% url 'polyclinic:detail' department.id %}" class="text-decoration-none link-dark">{{ department.name }}</a>
           </td>
           <td>{{ department.floor }}</td>
           <td>{{ department.rooms_qty }}</td>
           <td>
-            <a href="{% url 'users:doctor-detail' department.leader.id %}" class="text-decoration-none text-dark">{{ department.leader.get_full_name }}</a>
+            <a href="{% url 'users:doctor-detail' department.leader.id %}" class="text-decoration-none link-dark">{{ department.leader.get_full_name }}</a>
           </td>
         </tr>
       {% endfor %}

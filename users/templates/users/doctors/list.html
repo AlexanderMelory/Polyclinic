@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
 
-  </body>
-</html>
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="mb-4">Список докторов</h2>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">ФИО</th>
+        <th scope="col">Отделение</th>
+        <th scope="col">Должность</th>
+        <th scope="col">Стаж работы</th>
+        <th scope="col">Научное звание</th>
+        <th scope="col">Пол</th>
+        <th scope="col">Возраст</th>
+        <th scope="col">Адрес</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for doctor in doctors %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td><a href="{% url 'users:doctor-detail' doctor.id %}" class="text-decoration-none link-dark">{{ doctor.first_name }} {{ doctor.last_name }}</a></td>
+          <td>{{ doctor.department.name }}</td>
+          <td>{{ doctor.position }}</td>
+          <td>{{ doctor.experience }}</td>
+          <td>{% if doctor.rank %}{{ doctor.rank }}{% else %}Без звания{% endif %}</td>
+          <td>{{ doctor.get_gender_display }}</td>
+          <td>{{ doctor.age }}</td>
+          <td>{{ doctor.address }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
