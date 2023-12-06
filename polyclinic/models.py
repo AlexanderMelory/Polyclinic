@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.db import models
 from polyclinic.choices import TreatmentTypeChoices
 
@@ -25,7 +27,7 @@ class Diagnosis(models.Model):
 
     name = models.CharField('Название', max_length=255)
     symptoms = models.CharField('Симптомы', max_length=255, default='Головная боль')
-    treatment_time = models.DateField('Время на лечение', blank=True, default=0)
+    treatment_time = models.DurationField('Время на лечение', blank=True, default=timedelta(days=10))
 
 
 class MedicalHistory(models.Model):
@@ -47,6 +49,6 @@ class MedicalHistory(models.Model):
         Diagnosis, verbose_name='Диагноз', on_delete=models.SET_NULL, related_name='diagnosis', blank=True, null=True
     )
     health_procedures = models.CharField('Название лечения', max_length=1000)
-    treatment_typ = models.IntegerField(
+    treatment_type = models.IntegerField(
         'Вид лечения', choices=TreatmentTypeChoices.choices, default=TreatmentTypeChoices.OUTPATIENT
     )
