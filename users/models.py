@@ -12,16 +12,25 @@ class User(AbstractUser):
     pass
 
 
-class Doctor(models.Model):
-    """
-    Доктор
-    """
-
+class BaseDoctorPatient(models.Model):
     first_name = models.CharField('Имя', max_length=255)
     last_name = models.CharField('Фамилия', max_length=255)
     gender = models.IntegerField('Пол', choices=UserGenderChoices.choices, blank=True, null=True)
     age = models.IntegerField('Возраст', blank=True, null=True)
     address = models.CharField('Адрес', max_length=255, default='г.Архангельск')
+
+    def __str__(self):
+        return self.get_full_name()
+
+    def get_full_name(self):
+        return f'{self.get_role_display()} {self.first_name} {self.last_name}'
+
+
+class Doctor(BaseDoctorPatient):
+    """
+    Доктор
+    """
+
     department = models.ForeignKey(
         Department, verbose_name='Отделение', on_delete=models.SET_NULL, blank=True, null=True
     )
@@ -30,30 +39,10 @@ class Doctor(models.Model):
     experience = models.IntegerField('Стаж работы', blank=True, null=True)
     rank = models.CharField('Научное звание', blank=True, null=True)
 
-    def __str__(self):
-        return self.get_full_name()
 
-    def get_full_name(self):
-        return f'{self.first_name} {self.last_name}'
-
-
-class Patient(models.Model):
+class Patient(BaseDoctorPatient):
     """
     Пациент
     """
 
-    first_name = models.CharField('Имя', max_length=255)
-    last_name = models.CharField('Фамилия', max_length=255)
-    gender = models.IntegerField('Пол', choices=UserGenderChoices.choices, blank=True, null=True)
-    age = models.IntegerField('Возраст', blank=True, null=True)
-    address = models.CharField('Адрес', max_length=255, default='г.Архангельск')
-    department = models.ForeignKey(
-        Department, verbose_name='Отделение', on_delete=models.SET_NULL, blank=True, null=True
-    )
     role = models.IntegerField('Роль', choices=UserRolesChoices.choices, blank=True, default=UserRolesChoices.PATIENT)
-
-    def __str__(self):
-        return self.get_full_name()
-
-    def get_full_name(self):
-        return f'{self.first_name} {self.last_name}'
